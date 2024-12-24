@@ -1,0 +1,9 @@
+# 忽略 Python 編譯檔案
+app/__pycache__/
+*.pyc
+
+# 忽略環境設定檔
+.env
+
+# 忽略虛擬環境
+.venv/

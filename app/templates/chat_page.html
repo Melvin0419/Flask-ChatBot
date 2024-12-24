@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Chat</title>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="messages">
+            {% for role, message in conversation %}
+            <div class="message {{role}}">{{message}}</div>
+            {% endfor %}
+        </div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Type your message">
+            <button onclick="sendMessage()">Send</button>
+            <button id='record-button' onclick="toggleRecording()">Record</button>
+        </div>
+    </div>
+    <script src="/static/index2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/recorderjs/0.1.0/recorder.js"></script>
+</body>
+</html>
