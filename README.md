@@ -11,12 +11,12 @@
 
 
 ## 使用介紹
-1. 下載好專案以及安裝package
-2. 到openai的網站申請API_KEY
+1. 下載專案及安裝package
+2. 到OpenAI的網站申請API_KEY
 3. 安裝PostgreSQL，開好資料庫，並設定使用者密碼
-4. 將一些資訊儲存在.env檔裡面，程式才能正常讀取
+4. 將必要的資訊(API_KEY,SECRET_KEY等)儲存在.env檔裡面，程式才能正常讀取
 
-下方有功能展示的影片
-
+下方有功能展示的YT影片
+https://youtu.be/7E9tVvf4nyM
 
 
