@@ -101,3 +101,16 @@ def chat(new_content):
         recreate_thread(summary=summary)
 
     return last_message
+
+def suggest(message):
+
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini",
+    
+        messages=[
+            {"role": "system", "content": "You are a native speaker making user's sentences more fluent and natural, and tell the reason why. Spelling error is uneccessary to be mentioned in the reason."},
+            {"role": "user", "content": message}
+        ],
+    )
+
+    return completion.choices[0].message.content

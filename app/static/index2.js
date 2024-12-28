@@ -92,7 +92,51 @@ function addMessage(sender, text){
     const messagesDiv = document.getElementById('messages');
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${sender}`;
+    messageDiv.onclick = function(){
+        getSuggestion(this); 
+    };
     messageDiv.textContent = text;
     messagesDiv.appendChild(messageDiv);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+async function getSuggestion(element){
+    const message = element.textContent.trim();
+    // console.log(message);
+
+    // Send message to the server
+    const response = await fetch('/suggestion',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({message:message}),
+    });
+
+    if (response.ok){
+        const data = await response.json();
+        openModal(message,data.model_suggestion);
+        // console.log(data.model_suggestion);
+    } else {
+        console.error('Failed to get suggestion:', response.statusText);
+    }
+    
+}
+
+// Function to open the modal with dynamic content
+function openModal(oritext, modaltext) {
+    const modal = document.getElementById("popup-modal");
+
+    const originalText = document.getElementById("original-text");
+    originalText.textContent = oritext;
+
+    const modalText = document.getElementById("modal-text");
+    modalText.innerHTML = marked.parse(modaltext);
+    
+
+    modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+    const modal = document.getElementById("popup-modal");
+    modal.style.display = "none";
 }

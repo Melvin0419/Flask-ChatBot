@@ -69,7 +69,7 @@ def get_conversation(username):
             cursor = conn.cursor()
             query = f'''
 
-            SELECT conversations.role, conversations.message
+            SELECT conversations.id, conversations.role, conversations.message
             FROM conversations
             JOIN users
             ON conversations.user_id = users.id
@@ -111,5 +111,65 @@ def get_userid(username):
             conn.close()
             return userid
 
-if get_userid('melvin'):
-    print('yse')
+def get_messageid(message):
+    conn = get_connection()
+    messageid=None
+    if conn:
+        try:
+            cursor = conn.cursor()
+            query = '''
+            SELECT id
+            FROM conversations
+            WHERE message = %s
+            '''
+            cursor.execute(query,(message,))
+            messageid = cursor.fetchone()[0]
+            
+        except psycopg2.Error as e:
+            print(f'ERROR:{e}')
+        
+        finally:
+            cursor.close()
+            conn.close()
+            return messageid
+
+def get_suggestion(messageid):
+    conn = get_connection()
+    suggestion=None
+    if conn:
+        try:
+            cursor = conn.cursor()
+            query = f'''
+            SELECT suggestion
+            FROM suggestions
+            WHERE message_id = '{messageid}'
+            '''
+            cursor.execute(query)
+            suggestion = cursor.fetchone()[0]
+            
+        except psycopg2.Error as e:
+            print(f'ERROR:{e}')
+        
+        finally:
+            cursor.close()
+            conn.close()
+            return suggestion
+
+def insert_suggestion(messageid,suggestion):
+    conn = get_connection()
+
+    if conn:
+
+        try:
+            cursor = conn.cursor()
+            query = "INSERT INTO suggestions (message_id, suggestion) VALUES (%s,%s);"
+            cursor.execute(query,(messageid,suggestion))
+            # 提交變更
+            conn.commit()
+            print('INSERT Suggestion!')
+        except psycopg2.Error as e:
+            print(f'ERROR:{e}')
+            conn.rollback()
+        finally:
+            cursor.close()
+            conn.close()
