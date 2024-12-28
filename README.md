@@ -1,5 +1,5 @@
 # Flask ChatBot 
-用 Flask 串接 Open AI 的 Assistant API，實作一個自己的聊天機器人，並使用 PostgreSQL 來儲存聊天紀錄。
+用 Flask架構伺服器，串接 Open AI 的 Assistant API 來實作一個即時聊天機器人，並使用 PostgreSQL 來儲存聊天紀錄。
 ## 頁面介紹
 * **登入頁面**
   
@@ -13,8 +13,6 @@
    主要聊天的頁面，使用者可以用打字或是使用語音錄製的方式送出訊息，不論何種方式皆會將訊息顯示在視窗上，略等片刻就可以得到模型的回覆
 
   <img src=https://github.com/user-attachments/assets/6efe4fe6-4c7e-466f-9e7a-b09532768226 width="70%"/>
-
-
 
 
 ## 使用介紹
